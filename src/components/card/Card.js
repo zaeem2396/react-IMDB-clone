@@ -4,7 +4,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 
-export default function Card() {
+export default function Card({ movie }) {
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
         setTimeout(() => {
@@ -16,22 +16,21 @@ export default function Card() {
             isLoading
                 ?
                 <div className="IMDB_cards">
-                    <SkeletonTheme
-                        color="#202020" highlightColor="#444">
+                    <SkeletonTheme color="#202020" highlightColor="#444">
                         <Skeleton height={300} duration={2} />
                     </SkeletonTheme>
                 </div>
                 :
-                <Link to={`movie/${movie.id}`} style={{ textDecoration: "none", color: "#fff" }}>
+                <Link to={`/movie/${movie.id}`} style={{ textDecoration: "none", color: "white" }}>
                     <div className="IMDB_cards">
                         <img className="IMDB_cards__img" src={`https://image.tmdb.org/t/p/original${movie ? movie.poster_path : ""}`} />
                         <div className="IMDB_cards__overlay">
-                            <div className="IMDB_cards__title">{movie ? movie.original_title : ""}</div>
-                            <div className="IMDB_cards__runtime">
+                            <div className="IMDB_card__title">{movie ? movie.original_title : ""}</div>
+                            <div className="IMDB_card__runtime">
                                 {movie ? movie.release_date : ""}
-                                <span className="IMDB_cards__rating">{movie ? movie.vote_average : ""} <FaStar /></span>
+                                <span className="IMDB_card__rating">{movie ? movie.vote_average : ""} <FaStar /></span>
                             </div>
-                            <div className="IMDB_cards__desc">{movie ? `${movie.overview.slice(0, 118)}...` : ""}</div>
+                            <div className="IMDB_card__desc">{movie ? `${movie.overview.slice(0, 118)}...` : ""}</div>
                         </div>
                     </div>
                 </Link>
